@@ -1,0 +1,18 @@
+{
+    "Plugins": [
+        {
+            "Info": {
+                "Types": {
+                    "BasicResolver": {
+                        "bases": [ "ArResolver" ]
+                        }
+                }
+            },
+            "LibraryPath": "../lib/BasicResolver.dll",
+            "Name": "BasicAr",
+            "ResourcePath": "../",
+            "Root": "../",
+            "Type": "library"
+        }
+    ]
+}

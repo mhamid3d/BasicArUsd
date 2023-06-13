@@ -2,48 +2,25 @@
 #include "pxr/usd/ar/api.h"
 #include "pxr/usd/ar/resolver.h"
 #include "pxr/usd/ar/defaultResolver.h"
-
-#include <tbb/enumerable_thread_specific.h>
-
-#include <memory>
+#include "pxr/usd/ar/resolvedPath.h"
 #include <string>
-#include <vector>
-
 
 PXR_NAMESPACE_OPEN_SCOPE
 
 
-class BasicResolver
+class BasicResolver final
 	: public ArDefaultResolver
 {
 public:
 	BasicResolver();
 	virtual ~BasicResolver();
-
+protected:
 	AR_API
-		virtual std::string GetExtension(const std::string& path) override;
+		ArResolvedPath _Resolve(const std::string& assetPath) const final;
 	AR_API
-		virtual std::string Resolve(const std::string& path) override;
-
+		std::string _GetExtension(const std::string& assetPath) const final;
 	AR_API
-		virtual std::string ResolveWithAssetInfo(
-			const std::string& path,
-			ArAssetInfo* assetInfo) override;
-	AR_API
-		virtual void UpdateAssetInfo(
-			const std::string& identifier,
-			const std::string& filePath,
-			const std::string& fileVersion,
-			ArAssetInfo* assetInfo) override;
-	AR_API
-		virtual VtValue GetModificationTimestamp(
-			const std::string& path,
-			const std::string& resolvedPath) override;
-	AR_API
-		virtual bool FetchToLocalResolvedPath(
-			const std::string& path,
-			const std::string& resolvedPath) override;
-
+	    std::string _CreateIdentifier(const std::string& assetPath, const ArResolvedPath& anchorAssetPath) const final;
 };
 
 PXR_NAMESPACE_CLOSE_SCOPE
